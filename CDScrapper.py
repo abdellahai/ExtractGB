@@ -1,3 +1,9 @@
+import subprocess
+try:
+    subprocess.check_call(["pip", "install", 'biopython'])
+    print(f"Successfully installed biopython")
+except subprocess.CalledProcessError:
+    print(f"Failed to install biopython")
 import streamlit as st
 from Bio import Entrez, SeqIO
 import pandas as pd
