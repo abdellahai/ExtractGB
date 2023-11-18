@@ -1,2 +1,2 @@
-biopython==1.81
-streamlit==1.28.2
+biopython
+streamlit
