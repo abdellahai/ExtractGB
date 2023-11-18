@@ -4,7 +4,10 @@ import pandas as pd
 import io
 from Bio.SeqUtils import GC
 from Bio.Seq import Seq
-
+@st.cache
+def convert_df(df):
+    # IMPORTANT: Cache the conversion to prevent computation on every rerun
+    return df.to_csv().encode('utf-8')
 
 
 def GetGens (records):
@@ -123,18 +126,20 @@ def main():
             with col1:
                 st.subheader('Genes table')
                 st.dataframe(features, hide_index=True)
+                csv_features = convert_df(features)
                 st.download_button(
                     label="Download genes table",
-                    data=features,
+                    data=csv_features,
                     file_name='features.csv',
                     mime='text/csv',
                 )
             with col2:
                 st.subheader('Mitochondrion description')
                 st.dataframe(description, hide_index=True)
+                csv_description = convert_df(description)
                 st.download_button(
                     label="Download description table",
-                    data=description,
+                    data=csv_description,
                     file_name='description.csv',
                     mime='text/csv',
                 )
