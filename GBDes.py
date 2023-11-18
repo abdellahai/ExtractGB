@@ -123,9 +123,21 @@ def main():
             with col1:
                 st.subheader('Genes table')
                 st.dataframe(features, hide_index=True)
+                st.download_button(
+                    label="Download genes table",
+                    data=features,
+                    file_name='features.csv',
+                    mime='text/csv',
+                )
             with col2:
                 st.subheader('Mitochondrion description')
                 st.dataframe(description, hide_index=True)
+                st.download_button(
+                    label="Download description table",
+                    data=description,
+                    file_name='description.csv',
+                    mime='text/csv',
+                )
         
         
 
