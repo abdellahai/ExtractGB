@@ -49,6 +49,14 @@ def create_zip_file(sequences: dict):
 
 # Streamlit app
 def main():
+    st.set_page_config(layout='wide')
+    hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
     st.title("GenBank Sequence Downloader")
 
     # Get user input
