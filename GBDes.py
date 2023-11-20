@@ -74,6 +74,9 @@ def GetGens (records):
                 elif 'rbc' in gene :
                     data[12]['Genes'].append(gene)
                     data[12]['Size']+= len(feature.extract(record.seq))
+                elif 'trn' in gene:
+                    data[13]['Genes'].append(gene)
+                    data[13]['Size'] += len(feature.extract(record.seq))
                 elif 'rrn' in gene:
                     data[14]['Genes'].append(gene)
                     data[14]['Size'] += len(feature.extract(record.seq))
@@ -83,7 +86,7 @@ def GetGens (records):
             
             elif 'product' in feature.qualifiers:
                 product  = feature.qualifiers['product'][0]
-                if "TRN" in product.upper():
+                if "tRNA" in product:
                     data[13]['Genes'].append(product)
                     data[13]['Size'] += len(feature.extract(record.seq))
                 elif "ribosomal RNA" in product:
