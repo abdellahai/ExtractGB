@@ -18,12 +18,14 @@ def GetGens (records):
         {'Gene group':'Ubichinol cytochrom c reductase', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Cytochrom c oxidase', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'ATP synthase', 'Genes':[], 'Number of genes':0, 'Size':0},
-        {'Gene group':'Cytochrom c biogenesis', 'Genes':[], 'Number of genes':0, 'Size':0},
+        {'Gene group':'Cytochrom biogenesis', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Ribosomal proteins SSU', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'NRibosomal proteins LSU', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Maturase', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'ORFs', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'photosystem', 'Genes':[],'Number of genes':0,'Size':0},
+        {'Gene group':'RNA polymerase', 'Genes':[],'Number of genes':0,'Size':0},
+        {'Gene group':'RuBisCO', 'Genes':[],'Number of genes':0,'Size':0},
         {'Gene group':'Transfer RNA', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Ribosomal RNA', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Other genes', 'Genes':[], 'Number of genes':0, 'Size':0},
@@ -39,7 +41,7 @@ def GetGens (records):
                 elif 'sdh' in gene:
                     data[1]['Genes'].append(gene)
                     data[1]['Size'] += len(feature.extract(record.seq))
-                elif 'cob' in gene:
+                elif 'cob' in gene or 'pet' in gene:
                     data[2]['Genes'].append(gene)
                     data[2]['Size'] += len(feature.extract(record.seq))
                 elif 'cox' in gene:
@@ -48,7 +50,7 @@ def GetGens (records):
                 elif 'atp' in gene:
                     data[4]['Genes'].append(gene)
                     data[4]['Size'] += len(feature.extract(record.seq))
-                elif 'ccm' in gene:
+                elif 'ccm' in gene or 'ccs' in gene:
                     data[5]['Genes'].append(gene)
                     data[5]['Size'] += len(feature.extract(record.seq))
                 elif 'rps' in gene:
@@ -66,21 +68,27 @@ def GetGens (records):
                 elif 'psa' in gene or 'psb' in gene:
                     data[10]['Genes'].append(gene)
                     data[10]['Size']+= len(feature.extract(record.seq))
-                elif 'rrn' in gene:
+                elif 'rpo' in gene :
+                    data[11]['Genes'].append(gene)
+                    data[11]['Size']+= len(feature.extract(record.seq))
+                elif 'rbc' in gene :
                     data[12]['Genes'].append(gene)
-                    data[12]['Size'] += len(feature.extract(record.seq))
+                    data[12]['Size']+= len(feature.extract(record.seq))
+                elif 'rrn' in gene:
+                    data[14]['Genes'].append(gene)
+                    data[14]['Size'] += len(feature.extract(record.seq))
                 else:
-                    data[13]['Genes'].append(gene)
-                    data[13]['Size'] += len(feature.extract(record.seq))
+                    data[15]['Genes'].append(gene)
+                    data[15]['Size'] += len(feature.extract(record.seq))
             
             elif 'product' in feature.qualifiers:
                 product  = feature.qualifiers['product'][0]
                 if "TRN" in product.upper():
-                    data[11]['Genes'].append(product)
-                    data[11]['Size'] += len(feature.extract(record.seq))
+                    data[13]['Genes'].append(product)
+                    data[13]['Size'] += len(feature.extract(record.seq))
                 elif "ribosomal RNA" in product:
-                    data[12]['Genes'].append(product)
-                    data[12]['Size'] += len(feature.extract(record.seq))
+                    data[14]['Genes'].append(product)
+                    data[14]['Size'] += len(feature.extract(record.seq))
         concatenated_sequence += dna_sequence
     for d in data:
         d['Genes'] = list(set(d['Genes']))                
