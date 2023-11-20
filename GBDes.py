@@ -64,7 +64,7 @@ def GetGens (records):
                     data[9]['Genes'].append(gene)
                     data[9]['Size'] += len(feature.extract(record.seq))
                 elif 'psa' in gene or 'psb' in gene:
-                    data[10]['Genes].append(gene)
+                    data[10]['Genes'].append(gene)
                     data[10]['Size']+= len(feature.extract(record.seq))
                 else:
                     data[13]['Genes'].append(gene)
