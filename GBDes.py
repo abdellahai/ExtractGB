@@ -66,13 +66,16 @@ def GetGens (records):
                 elif 'psa' in gene or 'psb' in gene:
                     data[10]['Genes'].append(gene)
                     data[10]['Size']+= len(feature.extract(record.seq))
+                elif 'rrn' in gene:
+                    data[12]['Genes'].append(gene)
+                    data[12]['Size'] += len(feature.extract(record.seq))
                 else:
                     data[13]['Genes'].append(gene)
                     data[13]['Size'] += len(feature.extract(record.seq))
             
             elif 'product' in feature.qualifiers:
                 product  = feature.qualifiers['product'][0]
-                if "TRNA" in product.upper():
+                if "TRN" in product.upper():
                     data[11]['Genes'].append(product)
                     data[11]['Size'] += len(feature.extract(record.seq))
                 elif "ribosomal RNA" in product:
