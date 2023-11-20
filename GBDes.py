@@ -20,7 +20,7 @@ def GetGens (records):
         {'Gene group':'ATP synthase', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Cytochrom biogenesis', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Ribosomal proteins SSU', 'Genes':[], 'Number of genes':0, 'Size':0},
-        {'Gene group':'NRibosomal proteins LSU', 'Genes':[], 'Number of genes':0, 'Size':0},
+        {'Gene group':'Ribosomal proteins LSU', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Maturase', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'ORFs', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'photosystem', 'Genes':[],'Number of genes':0,'Size':0},
@@ -41,7 +41,7 @@ def GetGens (records):
                 elif 'sdh' in gene:
                     data[1]['Genes'].append(gene)
                     data[1]['Size'] += len(feature.extract(record.seq))
-                elif 'cob' in gene or 'pet' in gene:
+                elif 'cob' in gene :
                     data[2]['Genes'].append(gene)
                     data[2]['Size'] += len(feature.extract(record.seq))
                 elif 'cox' in gene:
@@ -50,7 +50,7 @@ def GetGens (records):
                 elif 'atp' in gene:
                     data[4]['Genes'].append(gene)
                     data[4]['Size'] += len(feature.extract(record.seq))
-                elif 'ccm' in gene or 'ccs' in gene:
+                elif 'ccm' in gene or 'ccs' in gene or 'pet' in gene:
                     data[5]['Genes'].append(gene)
                     data[5]['Size'] += len(feature.extract(record.seq))
                 elif 'rps' in gene:
