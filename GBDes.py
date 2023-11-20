@@ -23,6 +23,7 @@ def GetGens (records):
         {'Gene group':'NRibosomal proteins LSU', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Maturase', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'ORFs', 'Genes':[], 'Number of genes':0, 'Size':0},
+        {'Gene group':'photosystem', 'Genes':[],'Number of genes':0,'Size':0},
         {'Gene group':'Transfer RNA', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Ribosomal RNA', 'Genes':[], 'Number of genes':0, 'Size':0},
         {'Gene group':'Other genes', 'Genes':[], 'Number of genes':0, 'Size':0},
@@ -32,7 +33,7 @@ def GetGens (records):
         for feature in record.features:
             if 'gene' in feature.qualifiers:
                 gene = feature.qualifiers['gene'][0]
-                if 'nad' in gene:
+                if 'nad' in gene or 'ndh' in gene:
                     data[0]['Genes'].append(gene)
                     data[0]['Size'] += len(feature.extract(record.seq))
                 elif 'sdh' in gene:
@@ -62,18 +63,21 @@ def GetGens (records):
                 elif 'orf' in gene:
                     data[9]['Genes'].append(gene)
                     data[9]['Size'] += len(feature.extract(record.seq))
+                elif 'psa' in gene or 'psb' in gene:
+                    data[10]['Genes].append(gene)
+                    data[10]['Size']+= len(feature.extract(record.seq))
                 else:
-                    data[12]['Genes'].append(gene)
-                    data[12]['Size'] += len(feature.extract(record.seq))
+                    data[13]['Genes'].append(gene)
+                    data[13]['Size'] += len(feature.extract(record.seq))
             
             elif 'product' in feature.qualifiers:
                 product  = feature.qualifiers['product'][0]
-                if "tRNA" in product:
-                    data[10]['Genes'].append(product)
-                    data[10]['Size'] += len(feature.extract(record.seq))
-                elif "ribosomal RNA" in product:
+                if "TRNA" in product.upper():
                     data[11]['Genes'].append(product)
                     data[11]['Size'] += len(feature.extract(record.seq))
+                elif "ribosomal RNA" in product:
+                    data[12]['Genes'].append(product)
+                    data[12]['Size'] += len(feature.extract(record.seq))
         concatenated_sequence += dna_sequence
     for d in data:
         d['Genes'] = list(set(d['Genes']))                
